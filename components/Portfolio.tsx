@@ -2,6 +2,7 @@ import { forwardRef } from "react"
 import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { title } from "process"
 
 const screenwritingProjects = [
   {
@@ -15,23 +16,25 @@ const screenwritingProjects = [
 
 const copywritingProjects = [
   {
-    title: "TechNova Product Launch",
-    description: "A comprehensive marketing campaign for a cutting-edge smartphone.",
-    category: "Marketing Campaign",
-    details: `Developed a multi-channel marketing strategy for TechNova's latest smartphone release. The campaign included social media content, email marketing, blog posts, and press releases. The focus was on highlighting the phone's innovative features and its impact on daily life.`,
-    image: "/placeholder.svg?height=200&width=300",
+
+    image: "/work1.jpg",
   },
   {
-    title: "EcoLife Blog Series",
-    description: "A series of SEO-optimized blog posts promoting sustainable living.",
-    category: "Content Marketing",
-    details: `Created a 12-part blog series for EcoLife, a sustainable living brand. Each post focused on practical tips for adopting eco-friendly practices in everyday life. Topics ranged from reducing plastic waste to energy-efficient home improvements. The series significantly increased organic traffic and user engagement.`,
-    image: "/placeholder.svg?height=200&width=300",
+ 
+    image: "/work2.jpg",
+  },
+  {
+ 
+    image: "/work3.jpg",
+  },
+  {
+   
+    image: "/work4.jpg",
   },
   // Add more copywriting projects as needed
-]
+];
 
-const ProjectList = ({ projects, showImage = false }) => (
+const ProjectList = ({ projects, showImage = false, hideReadMore }) => (
   <div className="grid grid-cols-1 gap-6">
     {projects.map((project, index) => (
       <Card key={index}>
@@ -45,24 +48,30 @@ const ProjectList = ({ projects, showImage = false }) => (
               <Image
                 src={project.image || "/placeholder.svg"}
                 alt={project.title}
-                width={300}
-                height={200}
-                className="rounded-md object-cover w-full"
+                width={100}
+                height={100}
+                className="w-fit mx-auto  h-[36em] rounded-md object-cover"
               />
             </div>
           )}
           <p className="text-sm md:text-base">{project.description}</p>
-          {project.details && (
-            <details className="mt-4">
-              <summary className="cursor-pointer text-sm font-medium text-primary">Read more</summary>
-              <p className="mt-2 text-sm">{project.details}</p>
-            </details>
+          {!hideReadMore && (
+            <>
+              {project.details && (
+                <details className="mt-4">
+                  <summary className="cursor-pointer text-sm font-medium text-primary">
+                    Read more
+                  </summary>
+                  <p className="mt-2 text-sm">{project.details}</p>
+                </details>
+              )}
+            </>
           )}
         </CardContent>
       </Card>
     ))}
   </div>
-)
+);
 
 const Portfolio = forwardRef<HTMLElement>((props, ref) => {
   return (
@@ -78,7 +87,7 @@ const Portfolio = forwardRef<HTMLElement>((props, ref) => {
             <ProjectList projects={screenwritingProjects} />
           </TabsContent>
           <TabsContent value="copywriting">
-            <ProjectList projects={copywritingProjects} showImage={true} />
+            <ProjectList projects={copywritingProjects} showImage={true} hideReadMore={true} />
           </TabsContent>
         </Tabs>
       </div>
